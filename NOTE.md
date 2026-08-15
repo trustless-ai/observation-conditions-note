@@ -1,6 +1,6 @@
 # The conditions of an observation are part of the observation
 
-**Three conditions, one relation, and a test that separates them.**
+**Two conditions, one relation, one disputed case — and a test that did not survive a day.**
 
 ---
 
@@ -82,17 +82,36 @@ definition of what the world sees.
 **Evidence:** same record, `availability.serving`, one entry per (gateway, client),
 re-derivable with `reference/check_served_bytes.py --live`.
 
-## 4. Condition — *as of when you ask* (babyblueviper1)
+## 4. CONTESTED — registry-membership drift (babyblueviper1, attacked by Pavlo Tvardovskyi)
 
-Registry-membership drift, arrived at independently and before reading this note.
+Offered as a third condition. It may not be one. **This section is under active dispute and
+the dispute is the most useful thing in the note** — see §6.1.
 
 A proof is issued at T₀ while the issuer's registry status is valid. Registry membership
 changes at T₁ > T₀. The proof stays byte-valid and independently verifiable forever — but
 "issued by a registry-valid party" is only true **as of read time**, not issue time, and
 nothing in the proof itself says which one you are getting.
 
-Same shape as the block number: recoverable for free at read time, silently dropped if
-nobody thinks to record it.
+Offered as the same shape as the block number: recoverable at read time, silently dropped
+if nobody thinks to record it.
+
+**Pavlo's objection, 2026-08-15 — and it lands:**
+
+> "To know it, I have to read the proof and then perform another registry-state
+> read/check. *Available at the same moment* is not the same thing as *a free byproduct of
+> the same observation*. So under §6 as currently written, registry status seems closer to
+> the separate-additional-check side than to the condition side."
+
+**And a predicate distinction he draws that matters independently of §6:**
+
+> "*issuer was registry-valid at issuance* and *issuer is registry-valid now* are different
+> claims. The first can remain historically true after registry membership changes; the
+> second can become false. I would not describe that as one claim becoming stale, because
+> that risks collapsing timing state into validity state."
+
+That last sentence is this working group's own rule turned on this note. Two claims are
+being treated as one claim with an age, which is precisely the collapse
+[collapsed-state-note](https://github.com/trustless-ai/collapsed-state-note) is about.
 
 ## 5. The boundary — composition (Pavlo Tvardovskyi)
 
@@ -134,7 +153,7 @@ it is now the load-bearing part of the note:
 |---|---|---|
 | block number | free, from the same RPC call that returned the value | **condition** |
 | client identity | free, from the same request context — you always know who you asked | **condition** |
-| registry status | free, from a read available at the same moment | **condition** |
+| registry status | **DISPUTED** — requires a second, separate read of a different object | **§6.1** |
 | composition validity | **never free.** "Does A compose validly with B" is a strictly additional computation | **relation** |
 
 A genuine condition is something you **always implicitly have** and can choose to disclose
@@ -151,6 +170,39 @@ The distinction also explains why "more sources" fails in *two different ways*:
 And it accounts for the good faith in every incident here. **Nobody forgot to record a
 condition in the composition case — the additional check simply never ran**, while each
 author's own check stayed honestly green.
+
+### 6.1 The test is contested, and here is a candidate repair
+
+§6 was proposed by babyblueviper1 and attacked by Pavlo within a day. Neither of them is
+listed as agreeing with what follows; it is our attempt at a repair, offered for the same
+treatment.
+
+**A second case fails §6 the same way**, from a third thread and a fourth person. giskard09
+and kenneives, on the composed-attestation rubric: a verifier that has never been observed
+to return `true` cannot be trusted when it returns `false`. Establishing that a checker
+*discriminates* is not a byproduct of running it — it needs a separate known-good vector.
+It shipped as a real defect: this repo's BIP-340 verifier rejected a valid third-party cell,
+and a hand-rolled replacement returned `false` too, and was one sentence from being
+reported upstream as someone else's bad signature
+([crc#82](https://github.com/trustless-ai/cross-reference-console/pull/82)).
+
+Two cases now sit on the same side of the line. That suggests the binary is really **three
+kinds**:
+
+| kind | what it is | recovered how | examples |
+|---|---|---|---|
+| **condition of the act** | a property of the observing itself | you always implicitly have it | *when*, *who asked* |
+| **fact about another object** | a property of something else that must itself be observed, with its own conditions | a second observation | registry status, verifier discrimination |
+| **relation between claims** | whether local claims license a composed one | a strictly additional computation | composition |
+
+Under this reading, registry drift is not a fourth condition and not quite Pavlo's relation
+either: it is a **second observation** being silently folded into the first — which is why
+his predicate point bites. *Valid at issuance* and *valid now* are two observations of two
+different things, and treating them as one claim with an age is the collapse.
+
+**If this repair holds**, the note's title is wrong and its subject is larger than reads. If
+it does not, the honest outcome is that §4 comes out and the note stays at two conditions
+and a boundary. Both are better than the note as it stood this morning.
 
 ## 7. What fixes it
 
@@ -179,8 +231,10 @@ applied to conditions.
    drawn. A note that's precisely about reads is falsifiable the way §8's vectors already
    are; a note about 'context' broadly invites every future incident to get folded in
    without the same sharp test applying."* Leaning, not decided.
-2. **Does §6's test hold against a case none of us has seen?** That is the claim now. A
-   condition that is *not* a free byproduct, or a relation that *is* one, breaks it.
+2. **§6 did not survive a day.** Pavlo produced the counterexample §9 asked for, using
+   babyblueviper1's own fourth arrival. §6.1 offers a three-kind repair; it needs the same
+   treatment §6 just got. The question is now whether "fact about another object" is a real
+   third kind or a restatement of one of the other two.
 3. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
    grounds that this repo already fails closed elsewhere — an unknown operator set is
    unverifiable, never a guess — and an unbounded record is the same gap left open. **The
