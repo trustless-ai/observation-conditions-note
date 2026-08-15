@@ -9,7 +9,7 @@ published without the conditions that produced them, and an assumed author is on
 |---|---|---|
 | TMerlini | §3 (clients), assembled this base | yes — wrote it |
 | babyblueviper1 | §2 (caches), and the sharpest statement of the rule in §1 | **offered** — crc#75, 2026-08-15. Not yet confirmed in this repo |
-| Pavlo Tvardovskyi (@pipavlo82) | §4 (composition), described from a public thread | **not yet asked**. §4 is our paraphrase and he may state it differently |
+| Pavlo Tvardovskyi (@pipavlo82) | §4 (composition); **reviewed it 2026-08-15** and supplied the condition/relation distinction that reshaped §5 | **not yet asked.** He corrected the note without being invited to author it, and those are different things |
 
 ## To confirm or decline
 
@@ -17,3 +17,8 @@ Open a PR against this file, or say so in an issue. Declining costs nothing and 
 perfectly good outcome — so is "the finding is mine, the generalisation is not".
 
 If §4 misrepresents the composition work, correcting it matters more than the note does.
+
+**Already happened once.** The first draft filed composition as a third arrival at one
+rule. Its author read it and said the objection we had raised against ourselves was the
+right one to keep — so the note now has two conditions and a boundary case, which is a
+smaller and truer claim than the one it started with.

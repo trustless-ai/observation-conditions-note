@@ -1,6 +1,6 @@
 # The conditions of an observation are part of the observation
 
-**Three independent arrivals at one rule, in one week.**
+**Two conditions, one relation, and the boundary between them.**
 
 ---
 
@@ -13,23 +13,27 @@
 > | | |
 > |---|---|
 > | **Settled** | the three incidents happened; every one is linked to primary evidence below and independently checkable |
-> | **Proposed** | that they are the same rule. This is the claim under review |
-> | **Unsettled** | the statement of the rule, whether §5 generalises honestly, and the author list |
+> | **Settled 2026-08-15** | that composition is NOT a third instance. Its own author read the draft and endorsed our objection instead of defending his section — §4 is a missing **relation**, not a missing **condition** |
+> | **Open** | whether the general rule is about *observation conditions* or about *claim context* more broadly. §4 is the case that decides it |
+> | **Unsettled** | the statement of §1, and the author list |
 >
 > **Authorship is by offer, not by assumption.** babyblueviper1 offered to co-write
-> ("worth writing up — three independent directions converging on the same rule in a
-> week", crc#75, 2026-08-15). That offer is recorded, not cashed: nobody is listed as
-> an author until they say so in this repo. Pavlo Tvardovskyi has not been asked yet;
-> §4 describes his finding from a public thread and he may well state it differently.
+> (crc#75, 2026-08-15); that offer is recorded, not cashed. Pavlo Tvardovskyi has now
+> reviewed §4 and corrected it, and has not been asked to co-author. Nobody is listed
+> until they say so in this repo — see [AUTHORS.md](AUTHORS.md).
 >
-> Disagreement is the useful contribution here. If the three are *not* one rule,
-> that is the more interesting note and it should be written instead.
+> Disagreement is the useful contribution here, and it has already improved this note
+> once: the first draft called composition a third arrival, and it is not.
 
 ---
 
 ## 1. The rule, as currently stated
 
 **A reading is incomplete without the conditions that produced it.**
+
+Whether that is the whole rule, or a special case of something broader about *claim
+context*, is the open question this note now exists to test. §4 is the boundary case that
+decides it — see §5.
 
 Publish the value alone and you have published something a reader cannot place — cannot
 place in time, cannot place against a requester, cannot place within a composition. The
@@ -87,9 +91,10 @@ definition of what the world sees.
 `availability.serving`, one entry per (gateway, client), re-derivable by
 `reference/check_served_bytes.py --live`.
 
-## 4. Arrival three — composition (Pavlo Tvardovskyi)
+## 4. The boundary case — composition (Pavlo Tvardovskyi)
 
-*Described from a public thread; not yet reviewed by its author.*
+*Reviewed by its author 2026-08-15. He confirms this description of the TSEI direction and
+supplied the correction below, which changes what this section is FOR.*
 
 Extracting a producer-neutral transformation-stability layer from ReceiptOS, the question
 posed was not "is this artifact valid" but "did the claim remain normatively the same as
@@ -101,33 +106,51 @@ composed public claim is false — a console whose individual checks were green 
 relationship between them was stale; a verdict locally correct given what it was shown,
 while the disclosure of what it was *not* shown drifted separately.
 
-> "local validity must not imply composed validity unless the composition relationship
-> itself has been independently recomputed and verified."
+**Missing relation** — and this is his correction, not a rewording of ours:
 
-**Missing condition:** *under what composition*. He is explicit about the limit: closed-world
+> *under what verified relationship do these local claims license the composed claim?*
+
+`when` and `who asked` are conditions **of an observation**. This is structurally different:
+nothing about the individual readings is unknown. Each local claim is valid, observed under
+known conditions, and complete on its own terms. What is missing is a *relationship between
+them* that was never independently recomputed.
+
+His own statement of it, preserved verbatim at his request:
+
+> "local validity must not imply composed validity unless the composition relationship itself
+> has been independently recomputed and verified."
+
+He is explicit about the limit: closed-world
 coverage is mechanically complete over observed structural fields, but relationship-invariant
 completeness is still profile-authored — a mechanism can verify a declared invariant and
 cannot discover that a missing one ought to have existed.
 
-## 5. Why they may be one rule — THE CLAIM UNDER REVIEW
+## 5. Two conditions and one relation — THE OPEN QUESTION
 
-Each is a value published without a condition that determined it:
+| arrival | value | what was dropped | kind |
+|---|---|---|---|
+| caches | the resolved contenthash | the block it was read at | condition **of** an observation |
+| clients | the served bytes | the client that asked | condition **of** an observation |
+| composition | the composed verdict | the verified relationship between local claims | relation **between** claims |
 
-| arrival | value | condition dropped |
-|---|---|---|
-| caches | the resolved contenthash | the block it was read at |
-| clients | the served bytes | the client that asked |
-| composition | the composed verdict | the relationship that was recomputed |
+The first two are one rule and we are confident of it. The third is deliberately not
+folded in.
 
-And in each, the same corollary holds: adding sources does not help, because the sources
-share the dropped condition. Two APIs behind one cache. Two clients hitting one CDN rule.
-Two legs of a composition resting on one unverified relationship.
+**This objection was ours, and its own subject endorsed it rather than defending his
+section.** Pavlo, on reading the draft: *"your own objection in §5 is the right one to
+keep… the composition case is structurally different."* Two people arriving separately at
+the same doubt is the same evidence-shape as the note itself, pointed the other way.
 
-**The strongest objection we have so far**, and it is unresolved: the third may be a
-different animal. Time and requester are properties of *a* reading. A composition
-relationship is a property *between* readings, and calling both "a condition" may be a
-pun rather than a generalisation. §5 stands or falls on that, and it is the single most
-useful thing a reviewer could attack.
+So composition stays, **as the boundary case**, in his framing: it is the test of whether
+the general rule is really about *observation conditions* or about *claim context* more
+broadly. If claim context, the note is larger than three incidents and needs a different
+statement in §1. If observation conditions, the note is about reads, and §4 is a
+well-behaved neighbour that shows where the edge is.
+
+What survives either way is the corollary, and it is the reason all three of us were
+caught: **adding sources does not help when the sources share what was dropped.** Two APIs
+behind one cache. Two clients under one CDN rule. Two legs resting on one unverified
+relationship.
 
 ## 6. What actually fixes it
 
@@ -157,11 +180,15 @@ in prose:
 
 ## 8. Open questions for co-authors
 
-1. Does §5 hold, or is composition a different animal? *(the load-bearing one)*
-2. Is there a fourth arrival? Three is a pattern; four would be a rule.
-3. Should the bound be normative for `crc.pin-record.v0` — a record without an
+1. **RESOLVED by its subject, 2026-08-15:** composition is structurally different — a
+   missing *relation*, not a missing *condition*. It stays as the boundary case.
+2. **Now the load-bearing one:** is the general rule about **observation conditions** or
+   about **claim context**? §4 is the case that decides it, and the answer changes §1.
+3. Is there a fourth arrival? Three is a pattern; four would be a rule — and a fourth that
+   is a *relation* rather than a *condition* would settle question 2 on its own.
+4. Should the bound be normative for `crc.pin-record.v0` — a record without an
    observed-at block being invalid rather than merely weaker?
-4. Does this belong as a note at all, or as a section in an existing one?
+5. Does this belong as a note at all, or as a section in an existing one?
 
 ---
 
