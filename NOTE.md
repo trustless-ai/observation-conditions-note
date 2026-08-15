@@ -1,60 +1,54 @@
 # The conditions of an observation are part of the observation
 
-**Two conditions, one relation, and the boundary between them.**
+**Three conditions, one relation, and a test that separates them.**
 
 ---
 
-> ## ⚠ STATUS: DRAFT — UNDER REVIEW. NOT AGREED.
+> ## ⚠ STATUS: DRAFT — UNDER REVIEW.
 >
-> This is a **shared base**, written down so a week of findings is not lost in three
-> separate PR threads. It is not a position of the working group, it is not finished,
-> and its authorship is not settled.
+> A **shared base**, written down so a week of findings is not lost across separate PR
+> threads. Not a working-group position; not finished.
 >
 > | | |
 > |---|---|
-> | **Settled** | the three incidents happened; every one is linked to primary evidence below and independently checkable |
-> | **Settled 2026-08-15** | that composition is NOT a third instance. Its own author read the draft and endorsed our objection instead of defending his section — §4 is a missing **relation**, not a missing **condition** |
-> | **Open** | whether the general rule is about *observation conditions* or about *claim context* more broadly. §4 is the case that decides it |
-> | **Unsettled** | the statement of §1, and the author list |
+> | **Settled** | the four incidents. Each links to primary evidence and is independently checkable |
+> | **Settled 2026-08-15** | composition is **not** a fourth condition. Its own author read the draft and endorsed our objection rather than defending his section |
+> | **Proposed, with a test** | §6 gives a mechanical criterion for what counts as a condition. It is the load-bearing part now |
+> | **Leaning, not decided** | that the rule stays **narrow** — about reads, not about "claim context" broadly. Two independent votes, no decision |
 >
-> **Authorship is by offer, not by assumption.** babyblueviper1 offered to co-write
-> (crc#75, 2026-08-15); that offer is recorded, not cashed. Pavlo Tvardovskyi has now
-> reviewed §4 and corrected it, and has not been asked to co-author. Nobody is listed
-> until they say so in this repo — see [AUTHORS.md](AUTHORS.md).
+> Authorship is by offer, not assumption. See [AUTHORS.md](AUTHORS.md).
 >
-> Disagreement is the useful contribution here, and it has already improved this note
-> once: the first draft called composition a third arrival, and it is not.
+> Disagreement has already improved this twice: the first draft called composition a
+> third arrival, and had no test for what a condition even is.
 
 ---
 
-## 1. The rule, as currently stated
+## 1. The rule
 
 **A reading is incomplete without the conditions that produced it.**
 
-Whether that is the whole rule, or a special case of something broader about *claim
-context*, is the open question this note now exists to test. §4 is the boundary case that
-decides it — see §5.
+Publish the value alone and a reader cannot place it — not in time, not against a
+requester, not against the state that made it true. The value looks identical whether
+those conditions were sound or not, because nothing in it carries them.
 
-Publish the value alone and you have published something a reader cannot place — cannot
-place in time, cannot place against a requester, cannot place within a composition. The
-value looks identical whether the conditions were sound or not, because nothing in it
-carries them.
-
-The corollary is the part that surprised all three of us independently:
+The corollary is what caught all of us, independently:
 
 **More observations do not fix it.** If two readings share the condition that was wrong,
 their agreement is one observation counted twice. Redundancy answers "do my sources
 agree" when the question was "does my source agree with the world", and those come apart
-silently and for minutes at a time.
+silently, for minutes at a time.
 
-## 2. Arrival one — caches (babyblueviper1)
+**The rule is deliberately narrow: it is about reads.** §5 is the case that sets the
+boundary, and §6 is the test that keeps it there.
+
+## 2. Condition — *when* (babyblueviper1)
 
 On 15 August, two independent ENS APIs served a superseded contenthash for several
 minutes after the transaction confirmed. Both agreed. Both were wrong.
 
-The console's currency check read one of them and reported a transient false-STALE
-against a record that was correct. A human read the other and told his own team the
-transaction had not landed. It had — the contract said so throughout.
+The console's currency check read one and reported a transient false-STALE against a
+record that was correct. A human read the other and told his own team the transaction had
+not landed. It had — the contract said so throughout.
 
 > "a read agreeing with itself across multiple sources is not the same claim as a read
 > agreeing with ground truth — if the sources share an upstream cache/propagation delay,
@@ -62,16 +56,14 @@ transaction had not landed. It had — the contract said so throughout.
 > time, and nothing about querying MORE sources on the same lagging path closes that gap.
 > The fix has to be a freshness bound (block number / observed-at timestamp) on the read
 > itself, not more redundant reads of it."
-> — babyblueviper1, [crc#75](https://github.com/trustless-ai/cross-reference-console/pull/75#issuecomment-5304204998)
+> — [crc#75](https://github.com/trustless-ai/cross-reference-console/pull/75#issuecomment-5304204998)
 
-**Missing condition:** *when*. **Evidence:** pin record
-`pins/bafybeihim4cjh2uqxlctepgibzdhr77rag53mqu6vlces72eyyiqnjjipe.json`,
-`verification.block = 25761067`.
+**Evidence:** pin record `bafybeihim4cjh…json`, `verification.block = 25761067`.
 
-## 3. Arrival two — clients (TMerlini)
+## 3. Condition — *who asked* (TMerlini)
 
-The same day, comparing what an IPFS gateway serves against the pinned object produced
-the finding that `ipfs.io` serves the same CID three different ways:
+Comparing what an IPFS gateway serves against the pinned object produced the finding that
+`ipfs.io` serves the same CID three ways:
 
 ```
 curl/8.7.1                the hidden cdn-cgi beacon, 177569 bytes
@@ -79,117 +71,125 @@ a browser user-agent      the pinned bytes exactly,  177277 bytes
 python-urllib's default   403 Forbidden
 ```
 
-So "ipfs.io modifies responses" is true of one client and false of another. The first
-record written said it flatly, and was wrong for two clients out of three.
+"ipfs.io modifies responses" is therefore true of one client and false of another. The
+first record written said it flatly, and was wrong for two clients out of three.
 
 The trap has a second floor: the RPC used to read the contract *also* 403s
 python-urllib's default. The checker's own client was silently part of every verdict it
-produced, which makes whichever client the checker happens to use an accidental
+produced — which makes whichever client the checker happens to use an accidental
 definition of what the world sees.
 
-**Missing condition:** *who asked*. **Evidence:** same pin record,
-`availability.serving`, one entry per (gateway, client), re-derivable by
-`reference/check_served_bytes.py --live`.
+**Evidence:** same record, `availability.serving`, one entry per (gateway, client),
+re-derivable with `reference/check_served_bytes.py --live`.
 
-## 4. The boundary case — composition (Pavlo Tvardovskyi)
+## 4. Condition — *as of when you ask* (babyblueviper1)
 
-*Reviewed by its author 2026-08-15. He confirms this description of the TSEI direction and
-supplied the correction below, which changes what this section is FOR.*
+Registry-membership drift, arrived at independently and before reading this note.
+
+A proof is issued at T₀ while the issuer's registry status is valid. Registry membership
+changes at T₁ > T₀. The proof stays byte-valid and independently verifiable forever — but
+"issued by a registry-valid party" is only true **as of read time**, not issue time, and
+nothing in the proof itself says which one you are getting.
+
+Same shape as the block number: recoverable for free at read time, silently dropped if
+nobody thinks to record it.
+
+## 5. The boundary — composition (Pavlo Tvardovskyi)
+
+*Reviewed and corrected by its author, 2026-08-15.*
 
 Extracting a producer-neutral transformation-stability layer from ReceiptOS, the question
-posed was not "is this artifact valid" but "did the claim remain normatively the same as
-it moved through another object, projection, renderer, aggregator or independently
+was not "is this artifact valid" but "did the claim remain normatively the same as it
+moved through another object, projection, renderer, aggregator or independently
 implemented producer".
 
-The failure class named there: three local checks each individually true, while the
-composed public claim is false — a console whose individual checks were green while the
-relationship between them was stale; a verdict locally correct given what it was shown,
-while the disclosure of what it was *not* shown drifted separately.
-
-**Missing relation** — and this is his correction, not a rewording of ours:
+**Missing relation** — his correction, not our rewording:
 
 > *under what verified relationship do these local claims license the composed claim?*
 
-`when` and `who asked` are conditions **of an observation**. This is structurally different:
-nothing about the individual readings is unknown. Each local claim is valid, observed under
-known conditions, and complete on its own terms. What is missing is a *relationship between
-them* that was never independently recomputed.
+`when`, `who asked` and `as of when` are conditions **of an observation**. This is
+structurally different: nothing about the individual readings is unknown. Each local claim
+is valid, observed under known conditions, complete on its own terms. What is missing is a
+*relationship between them* that was never independently recomputed.
 
-His own statement of it, preserved verbatim at his request:
+> "local validity must not imply composed validity unless the composition relationship
+> itself has been independently recomputed and verified."
 
-> "local validity must not imply composed validity unless the composition relationship itself
-> has been independently recomputed and verified."
+He is explicit about the limit: closed-world coverage is mechanically complete over
+observed structural fields, but relationship-invariant completeness is still
+profile-authored — a mechanism can verify a declared invariant and cannot discover that a
+missing one ought to have existed.
 
-He is explicit about the limit: closed-world
-coverage is mechanically complete over observed structural fields, but relationship-invariant
-completeness is still profile-authored — a mechanism can verify a declared invariant and
-cannot discover that a missing one ought to have existed.
+## 6. THE TEST — free byproduct, or separate computation?
 
-## 5. Two conditions and one relation — THE OPEN QUESTION
+The first draft separated conditions from relations by intuition. This is a criterion, and
+it is now the load-bearing part of the note:
 
-| arrival | value | what was dropped | kind |
-|---|---|---|---|
-| caches | the resolved contenthash | the block it was read at | condition **of** an observation |
-| clients | the served bytes | the client that asked | condition **of** an observation |
-| composition | the composed verdict | the verified relationship between local claims | relation **between** claims |
+> **Is it recoverable as a free byproduct of making the same observation, or does
+> establishing it require a separate, additional check that could have been skipped
+> entirely?**
+> — babyblueviper1
 
-The first two are one rule and we are confident of it. The third is deliberately not
-folded in.
+| | recoverable how | kind |
+|---|---|---|
+| block number | free, from the same RPC call that returned the value | **condition** |
+| client identity | free, from the same request context — you always know who you asked | **condition** |
+| registry status | free, from a read available at the same moment | **condition** |
+| composition validity | **never free.** "Does A compose validly with B" is a strictly additional computation | **relation** |
 
-**This objection was ours, and its own subject endorsed it rather than defending his
-section.** Pavlo, on reading the draft: *"your own objection in §5 is the right one to
-keep… the composition case is structurally different."* Two people arriving separately at
-the same doubt is the same evidence-shape as the note itself, pointed the other way.
+A genuine condition is something you **always implicitly have** and can choose to disclose
+or drop. A relation is something you have to go **compute**, separately, and can fail to
+compute at all.
 
-So composition stays, **as the boundary case**, in his framing: it is the test of whether
-the general rule is really about *observation conditions* or about *claim context* more
-broadly. If claim context, the note is larger than three incidents and needs a different
-statement in §1. If observation conditions, the note is about reads, and §4 is a
-well-behaved neighbour that shows where the edge is.
+The distinction also explains why "more sources" fails in *two different ways*:
 
-What survives either way is the corollary, and it is the reason all three of us were
-caught: **adding sources does not help when the sources share what was dropped.** Two APIs
-behind one cache. Two clients under one CDN rule. Two legs resting on one unverified
-relationship.
+- more sources sharing a dropped **condition** merely repeat the same undated, unclientted
+  read;
+- more locally-valid **claims** sharing an unverified **relation** merely add another green
+  light nobody checked against the others.
 
-## 6. What actually fixes it
+And it accounts for the good faith in every incident here. **Nobody forgot to record a
+condition in the composition case — the additional check simply never ran**, while each
+author's own check stayed honestly green.
 
-Not more reads. A **bound**, carried with the value:
+## 7. What fixes it
 
-- a **block number or observed-at timestamp**, so a verdict can be placed in time
-- the **client the observation was made as**, so a verdict is about the world rather than
-  about one requester
-- the **recomputed relationship**, so a composed verdict depends on every leg independently
+Not more reads. A **bound carried with the value**: an observed-at block or timestamp; the
+client the observation was made as; the registry status at read time. For relations, not a
+bound at all, but an actual recomputation of the relationship.
 
-And where a bound is absent, the value must say so. A stale read is unfalsifiable from
-inside itself — nothing in the response reveals that it is behind, which is precisely why
+And where a bound is absent, the value must **say so**. A stale read is unfalsifiable from
+inside itself — nothing in the response reveals that it is behind, which is exactly why
 redundancy feels like it should help. So an undated verdict must not render like a dated
-one. This is the collapsed-state rule applied to conditions:
-[collapsed-state-note](https://github.com/trustless-ai/collapsed-state-note).
+one. This is [collapsed-state-note](https://github.com/trustless-ai/collapsed-state-note)
+applied to conditions.
 
-## 7. Shipped, so this is not only an argument
-
-Each fix is live and re-runnable, which is the point of writing it down here rather than
-in prose:
+## 8. Shipped, so this is not only an argument
 
 | | |
 |---|---|
-| dated reads | [crc#84](https://github.com/trustless-ai/cross-reference-console/pull/84) — the call is pinned to a named block; head age bounded against the **local clock**, deliberately, since a second RPC is another read on the same lagging path |
-| per-client observations | [crc#81](https://github.com/trustless-ai/cross-reference-console/pull/81) — `check_served_bytes.py`, one observation per (gateway, client), re-derived with `--live` |
+| dated reads | [crc#84](https://github.com/trustless-ai/cross-reference-console/pull/84) — the call is pinned to a named block; head age bounded against the **local clock**, since a second RPC is another read on the same lagging path |
+| per-client observations | [crc#81](https://github.com/trustless-ai/cross-reference-console/pull/81) — one observation per (gateway, client), re-derived with `--live` |
 | could-not-check ≠ failed | [crc#83](https://github.com/trustless-ai/cross-reference-console/pull/83) — an unreachable upstream stops being a red build |
 
-## 8. Open questions for co-authors
+## 9. Open
 
-1. **RESOLVED by its subject, 2026-08-15:** composition is structurally different — a
-   missing *relation*, not a missing *condition*. It stays as the boundary case.
-2. **Now the load-bearing one:** is the general rule about **observation conditions** or
-   about **claim context**? §4 is the case that decides it, and the answer changes §1.
-3. Is there a fourth arrival? Three is a pattern; four would be a rule — and a fourth that
-   is a *relation* rather than a *condition* would settle question 2 on its own.
-4. Should the bound be normative for `crc.pin-record.v0` — a record without an
-   observed-at block being invalid rather than merely weaker?
-5. Does this belong as a note at all, or as a section in an existing one?
+1. **Narrow or broad?** Two independent votes for narrow — Pavlo's correction, and
+   babyblueviper1's reasoning: *"'claim context' would blur exactly the line that just got
+   drawn. A note that's precisely about reads is falsifiable the way §8's vectors already
+   are; a note about 'context' broadly invites every future incident to get folded in
+   without the same sharp test applying."* Leaning, not decided.
+2. **Does §6's test hold against a case none of us has seen?** That is the claim now. A
+   condition that is *not* a free byproduct, or a relation that *is* one, breaks it.
+3. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
+   grounds that this repo already fails closed elsewhere — an unknown operator set is
+   unverifiable, never a guess — and an unbounded record is the same gap left open. **The
+   cost, named rather than waved past:** normative means every old unbounded record in the
+   pin history becomes formally *invalid* retroactively, not merely weaker. Grandfather
+   them as a distinct legacy tier, or accept the retroactive invalidation? That is a group
+   call.
+4. **A fifth arrival**, particularly one that stresses §6.
 
 ---
 
-**Licence:** CC0 1.0 Universal. **Status:** draft, under review, authorship open.
+**Licence:** CC0 1.0 Universal. **Status:** draft, under review.
