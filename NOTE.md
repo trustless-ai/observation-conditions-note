@@ -12,14 +12,16 @@
 > | | |
 > |---|---|
 > | **Settled** | the four incidents. Each links to primary evidence and is independently checkable |
-> | **Settled 2026-08-15** | composition is **not** a fourth condition. Its own author read the draft and endorsed our objection rather than defending his section |
-> | **Proposed, with a test** | §6 gives a mechanical criterion for what counts as a condition. It is the load-bearing part now |
-> | **Leaning, not decided** | that the rule stays **narrow** — about reads, not about "claim context" broadly. Two independent votes, no decision |
+> | **Settled** | composition is **not** a condition. Its own author endorsed our objection rather than defending his section |
+> | **CONTESTED** | §6's test, broken within a day by Pavlo — using babyblueviper1's own fourth arrival. §4 is disputed and §6.1 is an unendorsed repair |
+> | **Leaning, not decided** | that the rule stays **narrow** — about reads, not "claim context". Two votes, no decision — and §6.1, if it holds, argues the other way |
 >
 > Authorship is by offer, not assumption. See [AUTHORS.md](AUTHORS.md).
 >
-> Disagreement has already improved this twice: the first draft called composition a
-> third arrival, and had no test for what a condition even is.
+> Disagreement has improved this three times in one day: composition was not a third
+> arrival; there was no test for what a condition is; and the test, once written, did not
+> survive its first counterexample. Nothing here has been quietly rewritten — every
+> correction is attributed and the losing position is still legible.
 
 ---
 
@@ -126,8 +128,8 @@ implemented producer".
 
 > *under what verified relationship do these local claims license the composed claim?*
 
-`when`, `who asked` and `as of when` are conditions **of an observation**. This is
-structurally different: nothing about the individual readings is unknown. Each local claim
+`when` and `who asked` are conditions **of an observation** (`as of when` is disputed —
+§4). This is structurally different: nothing about the individual readings is unknown. Each local claim
 is valid, observed under known conditions, complete on its own terms. What is missing is a
 *relationship between them* that was never independently recomputed.
 
