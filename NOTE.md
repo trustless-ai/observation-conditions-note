@@ -1,6 +1,6 @@
 # The conditions of an observation are part of the observation
 
-**Two conditions, one relation, one disputed case — and a test that did not survive a day.**
+**Two conditions, one external-state fact, one relation — and a ladder for checking the checks.**
 
 ---
 
@@ -13,7 +13,8 @@
 > |---|---|
 > | **Settled** | the four incidents. Each links to primary evidence and is independently checkable |
 > | **Settled** | composition is **not** a condition. Its own author endorsed our objection rather than defending his section |
-> | **CONTESTED** | §6's test, broken within a day by Pavlo using babyblueviper1's own fourth arrival — then repaired to three kinds, then split to four. §4 is disputed; §6.1 is a moving target and that is the healthy state |
+> | **Settled 2026-08-15** | §6's test was broken by Pavlo using babyblueviper1's own fourth arrival, repaired to three kinds, split to four — and the disputed arrival was conceded by its proposer to be an external-state fact, not a condition |
+> | **Open** | the ladder's fourth rung. *Independently grounded* has a live implementation (`source_class`) and an unclosed gap: grounding is itself subject to the timing distinction in §4 |
 > | **Leaning, not decided** | that the rule stays **narrow** — about reads, not "claim context". Two votes, no decision — and §6.1, if it holds, argues the other way |
 >
 > Authorship is by offer, not assumption. See [AUTHORS.md](AUTHORS.md).
@@ -84,10 +85,21 @@ definition of what the world sees.
 **Evidence:** same record, `availability.serving`, one entry per (gateway, client),
 re-derivable with `reference/check_served_bytes.py --live`.
 
-## 4. CONTESTED — registry-membership drift (babyblueviper1, attacked by Pavlo Tvardovskyi)
+## 4. RESOLVED — registry-membership drift is an external-state fact
 
-Offered as a third condition. It may not be one. **This section is under active dispute and
-the dispute is the most useful thing in the note** — see §6.1.
+Offered as a third condition by babyblueviper1, attacked by Pavlo Tvardovskyi, and **conceded
+by its own author within the hour**:
+
+> "registry-NOW is not a free byproduct of reading the proof — it requires a genuinely separate
+> read (go check the registry, now), so it fails my own §6 test as I stated it. It belongs in
+> *external-state fact* (Pavlo's split), not *condition of the act*. The predicate distinction
+> is the sharper, correct version of what I was reaching for with 'drift', and I'd rather have
+> his framing in the note than mine."
+> — babyblueviper1, 2026-08-15
+
+So it is not a third condition. It is the worked example of the second kind, and it is here
+because the route it took — proposed, attacked with the proposer's own criterion, conceded by
+the proposer — is the only reason the four kinds exist at all.
 
 A proof is issued at T₀ while the issuer's registry status is valid. Registry membership
 changes at T₁ > T₀. The proof stays byte-valid and independently verifiable forever — but
@@ -231,6 +243,32 @@ matcher itself was then checked against a deliberately wrong assertion name, bec
 control that accepts any failure as the right one is decoration of exactly the kind the rule
 is about.
 
+### 6.2 The fourth rung is not hypothetical — it is `source_class`
+
+The closed loop (`m_i` and `A_i` authored by the same party) has an existing shape in this
+group's running code, which babyblueviper1 connected:
+
+> "`source_class=agent_reported` is precisely *the same party wrote the mutant and the expected
+> attribution* — internally consistent, self-checkable, structurally unable to prove the check
+> wasn't gamed by its own author. `source_class=independent_mediator` requires the attestation
+> to come from a party outside the acting agent's own control, **registry-gated so the caller
+> can't self-declare it** — same shape as *derive A_i independently, freeze/hash before
+> executing the gate*."
+
+That matters because it moves *independently grounded* from a proposed rung to one with a live
+implementation and a registry gate already enforcing it.
+
+**And then the note's own subject reappears inside its ladder.** He surfaced the gap by
+connecting the two halves:
+
+> "registry membership itself can drift after a proof issues — so *independently grounded at
+> issuance* and *independently grounded now* are not automatically the same claim either. Not
+> yet closed on our side. Worth a fifth arrival once it actually is, not before."
+
+The predicate-timing distinction Pavlo drew in §4 recurs one layer up, against the mechanism
+built to ground the check. **Not recorded as a fifth arrival**, at his explicit request — an
+open gap is not an arrival, and the note has enough of a habit of counting things early.
+
 **The title stays narrow for now**, on Pavlo's advice: the middle rows may yet collapse, and
 widening a title on a category that is one day old and still splitting would be premature. If
 the four kinds survive attack, the subject is larger than reads and the note should be
@@ -258,22 +296,27 @@ applied to conditions.
 
 ## 9. Open
 
-1. **Narrow or broad?** Two independent votes for narrow — Pavlo's correction, and
+1. **The fourth rung, honestly.** *declared → discriminating → attribution-consistent →
+   independently grounded.* The first three are built (crc#86, crc#87). The fourth exists as
+   `source_class=independent_mediator` and is not closed, because *independently grounded at
+   issuance* and *independently grounded now* are two claims. No fifth arrival is claimed for
+   this, at babyblueviper1's request, until it actually is one.
+2. **Narrow or broad?** Two independent votes for narrow — Pavlo's correction, and
    babyblueviper1's reasoning: *"'claim context' would blur exactly the line that just got
    drawn. A note that's precisely about reads is falsifiable the way §8's vectors already
    are; a note about 'context' broadly invites every future incident to get folded in
    without the same sharp test applying."* Leaning, not decided.
-2. **§6 did not survive a day, and its repair was split the same evening.** The live question
+3. **§6 did not survive a day, and its repair was split the same evening.** The live question
    is whether **external-state fact** and **evaluator discrimination** stay distinct under
    pressure, or whether one collapses into a neighbour. Four kinds is a claim, not a result.
-3. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
+4. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
    grounds that this repo already fails closed elsewhere — an unknown operator set is
    unverifiable, never a guess — and an unbounded record is the same gap left open. **The
    cost, named rather than waved past:** normative means every old unbounded record in the
    pin history becomes formally *invalid* retroactively, not merely weaker. Grandfather
    them as a distinct legacy tier, or accept the retroactive invalidation? That is a group
    call.
-4. **A fifth arrival**, particularly one that stresses §6.
+5. **A fifth arrival**, particularly one that stresses §6.
 
 ---
 
