@@ -13,7 +13,7 @@
 > |---|---|
 > | **Settled** | the four incidents. Each links to primary evidence and is independently checkable |
 > | **Settled** | composition is **not** a condition. Its own author endorsed our objection rather than defending his section |
-> | **CONTESTED** | §6's test, broken within a day by Pavlo — using babyblueviper1's own fourth arrival. §4 is disputed and §6.1 is an unendorsed repair |
+> | **CONTESTED** | §6's test, broken within a day by Pavlo using babyblueviper1's own fourth arrival — then repaired to three kinds, then split to four. §4 is disputed; §6.1 is a moving target and that is the healthy state |
 > | **Leaning, not decided** | that the rule stays **narrow** — about reads, not "claim context". Two votes, no decision — and §6.1, if it holds, argues the other way |
 >
 > Authorship is by offer, not assumption. See [AUTHORS.md](AUTHORS.md).
@@ -188,23 +188,53 @@ and a hand-rolled replacement returned `false` too, and was one sentence from be
 reported upstream as someone else's bad signature
 ([crc#82](https://github.com/trustless-ai/cross-reference-console/pull/82)).
 
-Two cases now sit on the same side of the line. That suggests the binary is really **three
-kinds**:
+Two cases sat on the same side of the line, which looked like a third kind. Pavlo then split
+that row too, and the split holds: **registry status and verifier discrimination are produced
+by different epistemic operations.**
 
-| kind | what it is | recovered how | examples |
-|---|---|---|---|
-| **condition of the act** | a property of the observing itself | you always implicitly have it | *when*, *who asked* |
-| **fact about another object** | a property of something else that must itself be observed, with its own conditions | a second observation | registry status, verifier discrimination |
-| **relation between claims** | whether local claims license a composed one | a strictly additional computation | composition |
+> "Verifier discrimination is not primarily a fact about another object; it is evidence about
+> whether the decision procedure *itself* is capable of discriminating the predicate it claims
+> to evaluate. A checker that has never demonstrated a true case is not merely missing another
+> observation. **Its negative result lacks conformance evidence.**"
+> — Pavlo Tvardovskyi, 2026-08-15
 
-Under this reading, registry drift is not a fourth condition and not quite Pavlo's relation
-either: it is a **second observation** being silently folded into the first — which is why
-his predicate point bites. *Valid at issuance* and *valid now* are two observations of two
-different things, and treating them as one claim with an age is the collapse.
+So the current candidate is **four kinds**, not three:
 
-**If this repair holds**, the note's title is wrong and its subject is larger than reads. If
-it does not, the honest outcome is that §4 comes out and the note stays at two conditions
-and a boundary. Both are better than the note as it stood this morning.
+| kind | established by | examples |
+|---|---|---|
+| **condition of the act** | you always implicitly have it | *when*, *who asked* |
+| **external-state fact** | a second observation, with its own conditions | registry status |
+| **evaluator discrimination** | known-good / known-bad conformance cases | a verifier's negative result |
+| **relation between claims** | a strictly additional computation | composition |
+
+Registry drift is a **second observation folded into the first**, which is why the predicate
+point bites: *valid at issuance* and *valid now* are observations of two different things.
+Verifier discrimination is not an observation at all — it is a property of the *procedure*,
+and its absence does not make a `false` wrong so much as **unbacked**.
+
+### The rule the fourth row rests on
+
+> **Declared does not imply discriminating.** For a declared invariant or verifier predicate
+> to carry weight, a targeted case should exist in which that predicate is known to change
+> the outcome — ideally with attribution to that predicate specifically.
+> — Pavlo Tvardovskyi
+
+It does not discover missing invariants. It establishes only that a declared checker is not
+decorative or permanently one-sided — which is a smaller and achievable claim.
+
+**This one is already mechanised**, which is some evidence it is implementable rather than
+merely stateable: `reference/test_operational_gates.py`
+([crc#81](https://github.com/trustless-ai/cross-reference-console/pull/81)) mutates a
+recomputed input per declared invariant and requires the gate to go red **on the assertion
+that names that invariant**, not merely somewhere — the attribution half of the rule. The
+matcher itself was then checked against a deliberately wrong assertion name, because a
+control that accepts any failure as the right one is decoration of exactly the kind the rule
+is about.
+
+**The title stays narrow for now**, on Pavlo's advice: the middle rows may yet collapse, and
+widening a title on a category that is one day old and still splitting would be premature. If
+the four kinds survive attack, the subject is larger than reads and the note should be
+renamed then, not before.
 
 ## 7. What fixes it
 
@@ -233,10 +263,9 @@ applied to conditions.
    drawn. A note that's precisely about reads is falsifiable the way §8's vectors already
    are; a note about 'context' broadly invites every future incident to get folded in
    without the same sharp test applying."* Leaning, not decided.
-2. **§6 did not survive a day.** Pavlo produced the counterexample §9 asked for, using
-   babyblueviper1's own fourth arrival. §6.1 offers a three-kind repair; it needs the same
-   treatment §6 just got. The question is now whether "fact about another object" is a real
-   third kind or a restatement of one of the other two.
+2. **§6 did not survive a day, and its repair was split the same evening.** The live question
+   is whether **external-state fact** and **evaluator discrimination** stay distinct under
+   pressure, or whether one collapses into a neighbour. Four kinds is a claim, not a result.
 3. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
    grounds that this repo already fails closed elsewhere — an unknown operator set is
    unverifiable, never a guess — and an unbounded record is the same gap left open. **The
