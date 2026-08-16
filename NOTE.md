@@ -188,14 +188,45 @@ Pavlo, naming what it is:
 to a transition that no later observation could recover. The fifth kind and the fifth arrival are
 the same shape seen from opposite ends — one is the gap, the other is what filling it looks like.
 
-**Verification status, stated rather than assumed.** The commit named (`4e8f304`) is not in a
-repository we can read, and the newest verdict proof on the public ledger (entry 243) is
-`policy_version = invinoveritas.review.v10` and carries neither `registry_as_of` nor
-`registry_snapshot_sha256`. That is consistent with v11 being deployed with no v11 entry
-published yet — **absence here is not disproof**, and the field-detection was confirmed working
-by correctly finding `verified_at` and `source_class` in the same entries. Recorded as
-*not yet independently observable*, which is the honest state and, pleasingly, the note's own
-subject one more time.
+**Verification status — and the answer turned out to be structural, not a backlog.**
+
+We checked before believing it: the newest verdict proof on the public ledger (entry 243) is
+`policy_version = invinoveritas.review.v10`, carrying neither `registry_as_of` nor
+`registry_snapshot_sha256`. Field-detection was confirmed working by correctly finding
+`verified_at` and `source_class` in the same entries, so the absence was real rather than a
+failure to look.
+
+The author's answer is the interesting part. v11 **is** live server-side — and the field only
+populates when `source_class` resolves to `independent_mediator`, which requires the **calling**
+key to be a registered mediator. He cannot make it appear from his own side:
+
+> "Making it appear from a call under our own key would just be self-attestation with a v11
+> label on it, the exact thing this note's whole ladder exists to catch."
+> — babyblueviper1, 2026-08-16
+
+So the honest close is not *"we publish a v11 proof"* but *"the next real independent-mediator
+submission carries it"* — and he is asking a third party (jw_ond/OSuite, who self-submitted entry
+243 through `/ledger/submit` under `osuite-checkpoint`) for a fresh submission, rather than
+manufacturing one.
+
+**This is the first case in the note where "not yet independently observable" is the CORRECT
+state rather than a gap.** The mechanism is designed so that the claim cannot be closed by the
+party making it. An artifact he generated himself would exist, would carry the v11 label, and
+would prove nothing new.
+
+### 4d. Some claims can only be closed by someone else
+
+Worth stating separately, because it now links the two open threads:
+
+- **`registry_as_of`** cannot be populated honestly by the party whose authority it describes.
+- **`A_i`**, the expected attribution set (§9.1), cannot be authored honestly by the party who
+  writes the mutant.
+
+In both, the missing ingredient is not effort or design — **it is a second party**. No amount of
+work from inside closes either, and a self-produced version of either is indistinguishable, on
+its face, from the real thing. That is precisely why the fourth rung is called *independently
+grounded* rather than *better documented*, and why leaving it open is the honest state rather
+than an unfinished one.
 
 ## 5. The boundary — composition (Pavlo Tvardovskyi)
 
