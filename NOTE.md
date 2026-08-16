@@ -1,6 +1,6 @@
 # The conditions of an observation are part of the observation
 
-**Two conditions, one external-state fact, one relation — and a ladder for checking the checks.**
+**Five kinds, five arrivals, and a ladder for checking the checks.**
 
 ---
 
@@ -14,7 +14,8 @@
 > | **Settled** | the four incidents. Each links to primary evidence and is independently checkable |
 > | **Settled** | composition is **not** a condition. Its own author endorsed our objection rather than defending his section |
 > | **Settled 2026-08-15** | §6's test was broken by Pavlo using babyblueviper1's own fourth arrival, repaired to three kinds, split to four — and the disputed arrival was conceded by its proposer to be an external-state fact, not a condition |
-> | **Open** | the ladder's fourth rung. *Independently grounded* has a live implementation (`source_class`) and an unclosed gap: grounding is itself subject to the timing distinction in §4 |
+> | **Closed 2026-08-16** | the timing gap in *independently grounded*. Registry state is now as-of-scoped and bound into `decision_ref` (§4c) — counted as the fifth arrival only because it was closed, not merely named |
+> | **Open** | `A_i` oracle-independence. Pavlo's three-role separation (§9.1) is the shape; babyblueviper1 is bringing a concrete proposal. Deliberately NOT collapsed into the rung above |
 > | **Leaning, not decided** | that the rule stays **narrow** — about reads, not "claim context". Two votes, no decision — and §6.1, if it holds, argues the other way |
 >
 > Authorship is by offer, not assumption. See [AUTHORS.md](AUTHORS.md).
@@ -126,6 +127,75 @@ if nobody thinks to record it.
 That last sentence is this working group's own rule turned on this note. Two claims are
 being treated as one claim with an age, which is precisely the collapse
 [collapsed-state-note](https://github.com/trustless-ai/collapsed-state-note) is about.
+
+## 4b. A FIFTH KIND — historical fact, recoverable only by a witness
+
+Arrived at 2026-08-16 by an agent failing at it, in a different tool, unprompted.
+
+Pavlo's local git config read `user.name = Pablo Tvardovskyi`. An agent found it and explained
+confidently that this was "the repo config's own historical typo" and "not something I
+introduced this session".
+
+> "The evidence didn't prove either of those things. My commit history only shows that earlier
+> commits used *Pavlo* and then at some point later commits started using *Pablo*. So the actual
+> evidence was **observed state → provenance unknown**, but the agent upgraded it to **observed
+> state → invented provenance**. Recomputing the current value still doesn't recompute its
+> history."
+> — Pavlo Tvardovskyi
+
+**This does not fit the four kinds, and the reason is sharp.** An external-state fact is
+recoverable by a second observation: go and read the registry, now. A historical fact is
+recoverable by **no observation whatsoever** — the transition is over. Only something that
+witnessed it at the time can establish it.
+
+babyblueviper1, connecting it to the night's other thread:
+
+> "'the value is X' is recomputable, 'here's why it became X' isn't, unless something actually
+> witnessed the transition. The agent's confident 'not something I introduced this session' is a
+> provenance CLAIM dressed as a provenance FACT — same failure mode as a self-reported
+> `source_class`, just with a causal story instead of an authority claim."
+
+| kind | recovered by |
+|---|---|
+| condition of the act | you always implicitly have it |
+| external-state fact | a second observation, available now |
+| **historical fact** | **a contemporaneous witness, or not at all** |
+| evaluator discrimination | known-good / known-bad conformance cases |
+| relation between claims | a strictly additional computation |
+
+## 4c. THE FIFTH ARRIVAL — and it is the remedy for §4b
+
+babyblueviper1 closed the timing hole overnight rather than leaving it named, which was his own
+condition for counting it:
+
+- the mediator registry moved from a gitignored file keyed by raw Bearer token to a **public,
+  git-tracked file keyed by non-secret `mediator_id`** — so **git history on that file is the
+  independently-checkable as-of record**;
+- `verified_at`, `registry_as_of` and `registry_snapshot_sha256` are bound into `decision_ref`
+  (policy v11);
+- `registry_as_of` equals `verified_at` only when the elevation actually held, else null, and is
+  **always present as a preimage key** — an absent field cannot be confused with a negative one;
+- old proofs unaffected: they recompute against their own field list.
+
+Pavlo, naming what it is:
+
+> "not 'registry-valid' as an aging property, but a **time-scoped authority claim whose
+> historical registry state is itself bound into the proof**. That closes the timing hole in
+> independent-mediator grounding without pretending it closes the separate A_i
+> oracle-independence problem."
+
+**And it is exactly the remedy §4b demands.** A git-tracked history is a contemporaneous witness
+to a transition that no later observation could recover. The fifth kind and the fifth arrival are
+the same shape seen from opposite ends — one is the gap, the other is what filling it looks like.
+
+**Verification status, stated rather than assumed.** The commit named (`4e8f304`) is not in a
+repository we can read, and the newest verdict proof on the public ledger (entry 243) is
+`policy_version = invinoveritas.review.v10` and carries neither `registry_as_of` nor
+`registry_snapshot_sha256`. That is consistent with v11 being deployed with no v11 entry
+published yet — **absence here is not disproof**, and the field-detection was confirmed working
+by correctly finding `verified_at` and `source_class` in the same entries. Recorded as
+*not yet independently observable*, which is the honest state and, pleasingly, the note's own
+subject one more time.
 
 ## 5. The boundary — composition (Pavlo Tvardovskyi)
 
@@ -296,27 +366,43 @@ applied to conditions.
 
 ## 9. Open
 
-1. **The fourth rung, honestly.** *declared → discriminating → attribution-consistent →
+1. **The fourth rung — now with a shape, from Pavlo.** Three roles kept distinct, and the
+   independence boundary is the thing under test:
+
+   | role | does |
+   |---|---|
+   | mutant author | constructs `m_i` |
+   | predicate / oracle author | derives `A_i` **independently**, from the frozen invariant definitions — not from gate output |
+   | gate under test | produces the observed attribution |
+
+   Freeze and hash `m_i`, `A_i`, **the invariant-definition identity, and provenance** before
+   execution; compare only afterwards. And his constraint that matters most: **disagreement
+   between the independent oracle and the gate must remain an explicit unresolved/conformance
+   result, never silently reconciled.** babyblueviper1 is bringing a concrete proposal rather
+   than a rushed sketch. Nothing to build until it lands.
+
+2. **The old fourth rung, honestly.** *declared → discriminating → attribution-consistent →
    independently grounded.* The first three are built (crc#86, crc#87). The fourth exists as
    `source_class=independent_mediator` and is not closed, because *independently grounded at
    issuance* and *independently grounded now* are two claims. No fifth arrival is claimed for
    this, at babyblueviper1's request, until it actually is one.
-2. **Narrow or broad?** Two independent votes for narrow — Pavlo's correction, and
+3. **Narrow or broad?** Two independent votes for narrow — Pavlo's correction, and
    babyblueviper1's reasoning: *"'claim context' would blur exactly the line that just got
    drawn. A note that's precisely about reads is falsifiable the way §8's vectors already
    are; a note about 'context' broadly invites every future incident to get folded in
    without the same sharp test applying."* Leaning, not decided.
-3. **§6 did not survive a day, and its repair was split the same evening.** The live question
+4. **§6 did not survive a day, and its repair was split the same evening.** The live question
    is whether **external-state fact** and **evaluator discrimination** stay distinct under
    pressure, or whether one collapses into a neighbour. Four kinds is a claim, not a result.
-4. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
+5. **Normative observed-at for `crc.pin-record.v0`?** babyblueviper1 says yes, on the
    grounds that this repo already fails closed elsewhere — an unknown operator set is
    unverifiable, never a guess — and an unbounded record is the same gap left open. **The
    cost, named rather than waved past:** normative means every old unbounded record in the
    pin history becomes formally *invalid* retroactively, not merely weaker. Grandfather
    them as a distinct legacy tier, or accept the retroactive invalidation? That is a group
    call.
-5. **A fifth arrival**, particularly one that stresses §6.
+6. **A sixth arrival**, particularly one that stresses §6. The fifth is in (§4c) and it was
+   required to be *closed* rather than merely named before it counted — a bar worth keeping.
 
 ---
 
