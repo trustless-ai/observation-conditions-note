@@ -435,6 +435,27 @@ applied to conditions.
 6. **A sixth arrival**, particularly one that stresses §6. The fifth is in (§4c) and it was
    required to be *closed* rather than merely named before it counted — a bar worth keeping.
 
+   **A named candidate at the verification-process layer (2026-08-17) — in scope structurally,
+   not counted.** The discipline under which a check was produced is a condition of that check's
+   output, and it drops silently: a green produced by real recompute is byte-identical to one
+   produced by an agent asserting from memory. It surfaced when an agent — applying this note's
+   own control as a standing rule — stated a spec's hashes matched *without recomputing* them,
+   while the canonical bytes differed, and was caught only when the recompute was reapplied.
+   **Not a closed arrival, and Pavlo Tvardovskyi's reason for that is the sharp part:** a
+   hash/diff produced *after* an assertion proves only that a *later* recomputation occurred; it
+   does not establish how the *original* green was produced — so this is a named provenance gap,
+   not a closed one. **The closing condition is stronger than "recompute afterwards":** the
+   verdict must bind the witnessing computation itself — the recomputed digest, the mutation
+   result, the execution trace — so *"this green came from this check"* is mechanically
+   recoverable rather than an out-of-band process claim, the same move §4c used to close §4b.
+   Until that exists it stays **named, not counted.** The invariant worth keeping is narrow, and
+   no wider: **a verification result must not inherit provenance from a procedure that left no
+   bound witness of having run.** If the formulation drifts from reads into general
+   process-discipline, the broader version belongs in
+   [collapsed-state-note](https://github.com/trustless-ai/collapsed-state-note), not a widening of
+   this note. (Tiago named the drift; Pavlo sharpened it to this invariant and closing condition —
+   by offer.)
+
 ---
 
 **Licence:** CC0 1.0 Universal. **Status:** draft, under review.
